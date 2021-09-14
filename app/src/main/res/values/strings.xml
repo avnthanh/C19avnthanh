@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">Covid19Tracker</string>
+    <string name="app_name">ChangedAppName</string>
+    <string name="welcome_message">Test Text</string>
+
 </resources>
