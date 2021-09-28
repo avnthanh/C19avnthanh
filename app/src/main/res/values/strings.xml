@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">Covid19Tracker</string>
+    <string name="app_name">avnthanhC19Tracker</string>
     <string name="welcome_message">Hello From Covid19Tracker App!</string>
 </resources>

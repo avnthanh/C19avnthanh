@@ -27,7 +27,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Create an intent that sends country code to detailactivity
-
+// call the get country method from country. but when do we want this to happen e.g. button press
+    //intent that sends country code to
 
     // Called when the user taps the Launch Detail Activity button
     private void launchDetailActivity(String message){

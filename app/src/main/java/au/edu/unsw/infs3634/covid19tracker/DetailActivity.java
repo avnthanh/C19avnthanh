@@ -34,9 +34,22 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
-        TextView tv2 = findViewById(R.id.textView2);
-        TextView tv3 = findViewById(R.id.textView3);
-        //rename and initialise all later
+        //initialise data cells & assign values
+        TextView tv1 = findViewById(R.id.valNewCases);
+//        tv1.setText(Country.getNewCases().toString());
+        TextView tv2 = findViewById(R.id.valTotalCases);
+//        tv2.setText(Country.getTotalCases().toString());
+        TextView tv3 = findViewById(R.id.valNewDeaths);
+        tv3.setText(Country.getNewDeaths().toString());
+        TextView tv4 = findViewById(R.id.valTotalDeaths);
+        tv4.setText(Country.getTotalDeaths().toString());
+        TextView tv5 = findViewById(R.id.valNewRecovered);
+        tv5.setText(Country.getNewRecovered().toString());
+        TextView tv6 = findViewById(R.id.valTotalRecovered);
+        tv6.setText(Country.getTotalRecovered().toString());
+        TextView tv7 = findViewById((R.id.countryName));
+        tv7.setText(Country.getCountry().toString());
+
 
     }
 
