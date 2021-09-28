@@ -33,6 +33,11 @@ public class DetailActivity extends AppCompatActivity {
                 showVideo("https://www.youtube.com/watch?v=BtN-goy9VOY");
             }
         });
+
+        TextView tv2 = findViewById(R.id.textView2);
+        TextView tv3 = findViewById(R.id.textView3);
+        //rename and initialise all later
+
     }
 
     // Called when the user taps the Show Video button

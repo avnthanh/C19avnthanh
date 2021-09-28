@@ -26,6 +26,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    //Create an intent that sends country code to detailactivity
+
+
     // Called when the user taps the Launch Detail Activity button
     private void launchDetailActivity(String message){
         Intent intent = new Intent(this, DetailActivity.class);
