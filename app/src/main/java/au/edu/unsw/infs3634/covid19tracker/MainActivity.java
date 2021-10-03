@@ -21,7 +21,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "On Click on the Launch Detail Activity button");
-                launchDetailActivity("This message came from MainActivity");
+//                launchDetailActivity("This message came from MainActivity");
+                launchDetailActivity("US");     //this sends the value "US" which is received by DetailActivity to display US COVID information
             }
         });
     }
