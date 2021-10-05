@@ -1,6 +1,8 @@
 package au.edu.unsw.infs3634.covid19tracker;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private List<Country> mCountries;
     private CountryAdapter cAdapter;
+    private RecyclerView mRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,9 +26,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mCountries = new ArrayList<>();
-        prepareCountries();
-
         cAdapter = new CountryAdapter(mCountries);
+        mRecyclerView.findViewById(R.id.RecyclerView);
+        mRecyclerView.setHasFixedSize(true);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setAdapter((cAdapter));
     }
 
 
@@ -36,8 +42,4 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void prepareCountries() {
-        Country country = new Country(country);
-        mCountries.add(country);
-    }
 }

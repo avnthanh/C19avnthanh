@@ -30,7 +30,7 @@ public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.MyViewHo
         //Takes the position of a country in an arraylist and displays it
         final Country country = mCountries.get(position);
         holder.tvCountry2.setText(country.getCountry());
-        holder.tvNewCases2.setText(country.getNewConfirmed());
+        holder.tvNewCases2.setText("+ " + country.getNewConfirmed());
         holder.tvTotalCases2.setText(country.getTotalConfirmed());
 
     }
