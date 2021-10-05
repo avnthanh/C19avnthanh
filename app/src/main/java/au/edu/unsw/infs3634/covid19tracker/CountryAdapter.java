@@ -12,9 +12,15 @@ import java.util.List;
 
 public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.MyViewHolder> {
     private List<Country> mCountries;
+    private ClickListener mListener;
 
-    CountryAdapter(List<Country> country) {
+    CountryAdapter(List<Country> country, ClickListener listener) {
         this.mCountries = country;
+        mListener = listener;
+    }
+
+    public interface ClickListener {
+        void onProductClick(View view, int countryID);
     }
 
     @NonNull
@@ -22,16 +28,18 @@ public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.MyViewHo
     public CountryAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //here, we defined a view by the item_row_layout and returned it to the viewholder
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_row_layout, parent, false);
-        return new MyViewHolder(view);
+        return new MyViewHolder(view, mListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         //Takes the position of a country in an arraylist and displays it
         final Country country = mCountries.get(position);
+        int countryID = position;
         holder.tvCountry2.setText(country.getCountry());
         holder.tvNewCases2.setText("+ " + country.getNewConfirmed());
         holder.tvTotalCases2.setText(country.getTotalConfirmed());
+        holder.itemView.setTag(countryID);
 
     }
 
@@ -40,15 +48,24 @@ public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.MyViewHo
         return mCountries.size();
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder {
+    class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView tvCountry2, tvNewCases2, tvTotalCases2;
+        private ClickListener listener;
 
-        public MyViewHolder(@NonNull View itemView) {
+        public MyViewHolder(@NonNull View itemView, ClickListener listener) {
             super(itemView);
+            this.listener = listener;
+            itemView.setOnClickListener(MyViewHolder.this);
+
             //the view is passed from onCreateViewHolder and the textviews are linked and instantiated by id
             tvCountry2.findViewById(R.id.tvCountry2);
             tvNewCases2.findViewById(R.id.tvNewCases2);
             tvTotalCases2.findViewById(R.id.tvTotalCases2);
+        }
+
+        @Override
+        public void onClick(View view) {
+            listener.onProductClick(view, (Integer) view.getTag());
         }
     }
 
