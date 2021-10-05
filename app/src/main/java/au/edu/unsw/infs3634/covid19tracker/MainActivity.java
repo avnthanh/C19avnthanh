@@ -8,33 +8,36 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
+    private List<Country> mCountries;
+    private CountryAdapter cAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button button = findViewById(R.id.btnLaunchActivity);
-        // Implement onClickListener for btnLaunchActivity button
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "On Click on the Launch Detail Activity button");
-//                launchDetailActivity("This message came from MainActivity");
-                launchDetailActivity("US");     //this sends the value "US" which is received by DetailActivity to display US COVID information
-            }
-        });
+
+        mCountries = new ArrayList<>();
+        prepareCountries();
+
+        cAdapter = new CountryAdapter(mCountries);
     }
 
-    //Create an intent that sends country code to detailactivity
-// call the get country method from country. but when do we want this to happen e.g. button press
-    //intent that sends country code to
 
     // Called when the user taps the Launch Detail Activity button
     private void launchDetailActivity(String message){
         Intent intent = new Intent(this, DetailActivity.class);
         intent.putExtra(DetailActivity.INTENT_MESSAGE, message);
         startActivity(intent);
+    }
+
+    private void prepareCountries() {
+        Country country = new Country(country);
+        mCountries.add(country);
     }
 }
