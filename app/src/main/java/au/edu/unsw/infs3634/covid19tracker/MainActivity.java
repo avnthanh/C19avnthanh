@@ -4,19 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String TAG = "MainActivity";
-    private List<Country> mCountries;
+    private List<Country> mCountries = new ArrayList<>();
     private CountryAdapter cAdapter;
     private RecyclerView mRecyclerView;
 
@@ -25,28 +21,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mCountries = new ArrayList<>();
-        cAdapter = new CountryAdapter(mCountries, listener);
-        mRecyclerView = findViewById(R.id.RecyclerView);
+        mRecyclerView = findViewById(R.id.recycleView);
         mRecyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         mRecyclerView.setLayoutManager(layoutManager);
-        mRecyclerView.setAdapter((cAdapter));
+
+        CountryAdapter.ClickListener listener = new CountryAdapter.ClickListener() {
+            @Override
+            public void onProductClick(View view, int countryID) {
+                final Country country = mCountries.get(countryID);
+                Toast.makeText(getApplicationContext(), country.getCountry() + "\nNew Cases = " +country.getNewConfirmed(), Toast.LENGTH_SHORT).show();
+            }
+        };
+
+        cAdapter = new CountryAdapter(mCountries, listener);
+        mRecyclerView.setAdapter(cAdapter);
     }
-
-    CountryAdapter.ClickListener listener = new CountryAdapter.ClickListener() {
-        @Override
-        public void onProductClick(View view, int countryID) {
-            final Country country = mCountries.get(countryID);
-//            Intent intent = new Intent(MainActivity.this, DetailActivity.class);
-//            setContentView(R.layout.activity_detail);
-        }
-    };
-
-//    // Called when the user taps the Launch Detail Activity button
-//    private void launchDetailActivity(String message) {
-//        Intent intent = new Intent(this, DetailActivity.class);
-//        intent.putExtra(DetailActivity.INTENT_MESSAGE, message);
-//        startActivity(intent);
 
 }
