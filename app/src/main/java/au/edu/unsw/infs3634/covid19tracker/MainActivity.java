@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -20,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private List<Country> mCountries = new ArrayList<>();
     private CountryAdapter mAdapter;
     private RecyclerView mRecyclerView;
+    private Response response = new Gson(Response.class)
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -5,20 +5,8 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 @Generated("jsonschema2pojo")
-public class Country {
+public class Global {
 
-    @SerializedName("ID")
-    @Expose
-    private String id;
-    @SerializedName("Country")
-    @Expose
-    private String country;
-    @SerializedName("CountryCode")
-    @Expose
-    private String countryCode;
-    @SerializedName("Slug")
-    @Expose
-    private String slug;
     @SerializedName("NewConfirmed")
     @Expose
     private Integer newConfirmed;
@@ -40,41 +28,6 @@ public class Country {
     @SerializedName("Date")
     @Expose
     private String date;
-    @SerializedName("Premium")
-    @Expose
-    private Premium premium;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public String getCountryCode() {
-        return countryCode;
-    }
-
-    public void setCountryCode(String countryCode) {
-        this.countryCode = countryCode;
-    }
-
-    public String getSlug() {
-        return slug;
-    }
-
-    public void setSlug(String slug) {
-        this.slug = slug;
-    }
 
     public Integer getNewConfirmed() {
         return newConfirmed;
@@ -132,13 +85,4 @@ public class Country {
         this.date = date;
     }
 
-    public Premium getPremium() {
-        return premium;
-    }
-
-    public void setPremium(Premium premium) {
-        this.premium = premium;
-    }
-
 }
-
