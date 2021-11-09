@@ -1,28 +1,27 @@
 package au.edu.unsw.infs3634.covid19tracker;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.SearchView;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
-    private List<Country> mCountries = new ArrayList<>();
+    private static final String TAG = "MainActivity";
     private CountryAdapter mAdapter;
     private RecyclerView mRecyclerView;
-    private Response response = new Gson(Response.class)
+    private RecyclerView.LayoutManager layoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //this passes the data from Country class to mCountries, which then is passed to Adapter
-        mCountries = Country.getCountries();
+//        mCountries = Country.getCountries();
 
         // Instantiate Recyclerview
         mRecyclerView = findViewById(R.id.recycleView);
@@ -38,22 +37,30 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setHasFixedSize(true);
 
         // Specify linear layout manager for RecyclerView
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        layoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(layoutManager);
 
         CountryAdapter.ClickListener listener = new CountryAdapter.ClickListener() {
             @Override
-            public void onProductClick(View view, int countryID) {
-                Country country = mCountries.get(countryID);
-                // Display details for the selected RecyclerView item (product on the list)
-                Toast.makeText(getApplicationContext(), country.getCountry()+"\nNew Cases = + "+country.getNewConfirmed(), Toast.LENGTH_SHORT).show();
+            public void onCountryClick(View view, String countryCode) {
+                launchDetailActivity(countryCode);
             }
         };
 
+        //gson Library
+        Gson gson = new Gson();
+        Response response = gson.fromJson(Response.json, Response.class);
+
         // Instantiate adapter
-        mAdapter = new CountryAdapter(mCountries, listener);
+        mAdapter = new CountryAdapter(response.getCountries(), listener);
         // Set the adapter for the recycler view
         mRecyclerView.setAdapter(mAdapter);
+    }
+
+    private void launchDetailActivity(String message) {
+        Intent intent = new Intent(this, DetailActivity.class);
+        intent.putExtra(DetailActivity.INTENT_MESSAGE, message);
+        startActivity(intent);
     }
 
     @Override

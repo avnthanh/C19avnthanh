@@ -10,11 +10,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Locale;
 
 // Adapter class that connects data set to the recycler view
 public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.MyViewHolder> implements Filterable{
@@ -58,7 +58,7 @@ public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.MyViewHo
 
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-                mCountriesFiltered = (ArrayList<Country>) filterResults.values;
+                mCountriesFiltered = (List<Country>) filterResults.values;
                 notifyDataSetChanged();
             }
         };
@@ -66,7 +66,7 @@ public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.MyViewHo
 
     // Allows click events to be caught
     public interface ClickListener {
-        void onProductClick(View view, int countryID);
+        void onCountryClick(View view, String countryCode);
     }
 
     // Inflate the row layout from xml when needed (just the view, no data)
@@ -81,8 +81,8 @@ public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.MyViewHo
     @Override
     public void onBindViewHolder(@NonNull CountryAdapter.MyViewHolder holder, int position) {
 //        final Country country = mCountries.get(position);
-        final Country country = mCountriesFiltered.get(position);
-        int countryID = position;
+        Country country = mCountriesFiltered.get(position);
+        DecimalFormat df = new DecimalFormat( "#,###,###,###" );
 
         //converting Integer value of Country methods to String so setText can work
         int newConfirmedInt = country.getNewConfirmed();
@@ -96,7 +96,7 @@ public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.MyViewHo
         holder.totalCases.setText(totalConfirmedString);
 //        holder.newCases.setText(country.getNewConfirmed());
 //        holder.totalCases.setText(country.getTotalConfirmed());
-        holder.itemView.setTag(countryID);
+        holder.itemView.setTag(country.getCountryCode());
     }
 
     // Total number of rows in the list
@@ -121,7 +121,7 @@ public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.MyViewHo
 
         @Override
         public void onClick(View v) {
-            listener.onProductClick(v, (Integer) v.getTag());
+            listener.onCountryClick(v, (String) v.getTag());
         }
     }
 
